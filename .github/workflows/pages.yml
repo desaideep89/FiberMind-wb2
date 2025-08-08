@@ -10,6 +10,8 @@ permissions:
 concurrency:
   group: "pages"
   cancel-in-progress: true
+env:
+  BASE_PATH: /FiberMind-wb2
 jobs:
   build:
     runs-on: ubuntu-latest
