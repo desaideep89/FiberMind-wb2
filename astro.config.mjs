@@ -1,9 +1,10 @@
+// astro.config.mjs
 import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
 
+// IMPORTANT: update the "site" if you ever move repos or orgs
 export default defineConfig({
-  integrations: [mdx()],
   site: 'https://desaideep89.github.io',
-  base: '/FiberMind-wb2',
-  build: { inlineStylesheets: 'auto' },
+  base: '/FiberMind-wb2',          // repo name (GitHub Pages subpath)
+  trailingSlash: 'ignore',         // cleaner URLs
+  scopedStyleStrategy: 'where',    // safer CSS scoping
 });
