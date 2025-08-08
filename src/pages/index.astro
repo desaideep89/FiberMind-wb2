@@ -1,19 +1,28 @@
 ---
 import '../styles/site.css';
 
-// Build-safe helper: respects dev and GitHub Pages base path
-const img = (p: string) => import.meta.env.BASE_URL + p.replace(/^\//, '');
+// Join two path segments with exactly one slash
+const urlJoin: (a: string, b: string) => string = (a, b) =>
+  `${(a || '/').replace(/\/$/, '')}/${(b || '').replace(/^\//, '')}`;
+
+// Build-safe helpers that respect dev (/) and Pages (/FiberMind-wb2)
+const linkUrl: (p: string) => string = (p) => urlJoin(import.meta.env.BASE_URL || '/', p);
+const imageUrl = linkUrl;
+
+// Back-compat aliases so existing calls keep working
+const base = linkUrl;
+const img  = imageUrl;
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FiberMind</title>
+    <title>FiberMind — Infrastructure Intelligence</title>
+    <link rel="icon" href={img('images/logo.jpg')} />
   </head>
 
   <body>
-    <!-- Header -->
     <header class="header">
       <nav class="nav wrap">
         <div class="logo">
@@ -25,12 +34,11 @@ const img = (p: string) => import.meta.env.BASE_URL + p.replace(/^\//, '');
           <li><a href="#how">How it works</a></li>
           <li><a href="#industries">Industries</a></li>
           <li><a href="#focus">Vision</a></li>
-          <li><a class="btn" href="/contact">Contact</a></li>
+          <li><a class="btn" href={base('contact/')}>Contact</a></li>
         </ul>
       </nav>
     </header>
 
-    <!-- Hero -->
     <section class="hero">
       <div class="wrap">
         <h1>Make the world’s fiber intelligent</h1>
@@ -38,12 +46,10 @@ const img = (p: string) => import.meta.env.BASE_URL + p.replace(/^\//, '');
           Turning billions of kilometers of cable into real‑time awareness for rail, oil and gas,
           and critical assets. Fully hardware agnostic.
         </p>
-
         <div class="hero-buttons">
-          <a class="btn" href="#industries">See the breakthrough</a>
+          <a class="btn" href="#industries">See the focus</a>
           <a class="btn btn-outline" href="#how">How it works</a>
         </div>
-
         <div class="stats">
           <div><strong>4b+</strong><span>km fiber deployed</span></div>
           <div><strong>0.0005%</strong><span>used as sensors</span></div>
@@ -52,13 +58,12 @@ const img = (p: string) => import.meta.env.BASE_URL + p.replace(/^\//, '');
       </div>
     </section>
 
-    <!-- Problem -->
     <section id="problem" class="section">
       <div class="wrap">
         <h2>Infrastructure is blind</h2>
         <p class="muted" style="max-width:760px">
-          Trillions invested yet networks cannot see intrusions, overheating, or ground shifts
-          until after the fact. Fiber is already in place but almost none of it is used for sensing.
+          Trillions invested yet networks cannot see intrusions, overheating, or ground shifts until after the fact.
+          Fiber is already in place but almost none of it is used for sensing.
         </p>
         <ul class="muted">
           <li>Legacy stacks are hardware locked</li>
@@ -68,7 +73,6 @@ const img = (p: string) => import.meta.env.BASE_URL + p.replace(/^\//, '');
       </div>
     </section>
 
-    <!-- Industries -->
     <section id="industries" class="section">
       <div class="wrap">
         <h2>Industries we serve</h2>
@@ -78,13 +82,11 @@ const img = (p: string) => import.meta.env.BASE_URL + p.replace(/^\//, '');
             <h3>Rail</h3>
             <p class="muted">Broken rail detection and corridor awareness.</p>
           </article>
-
           <article class="tile">
             <img src={img('images/pipeline.png')} alt="Oil and gas" />
             <h3>Oil and gas</h3>
             <p class="muted">Third‑party intrusion and leak detection.</p>
           </article>
-
           <article class="tile">
             <img src={img('images/subsea.png')} alt="Subsea" />
             <h3>Subsea</h3>
@@ -94,21 +96,18 @@ const img = (p: string) => import.meta.env.BASE_URL + p.replace(/^\//, '');
       </div>
     </section>
 
-    <!-- How it works -->
     <section id="how" class="section">
       <div class="wrap card" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
         <div style="flex:1 1 360px">
           <h2>The breakthrough</h2>
           <p class="muted" style="margin-top:6px">
-            A Large Vibration Model that learns across fibers, terrains, and events, cutting training
-            and labelling time while driving near‑zero false positives.
+            A Large Vibration Model that learns across fibers, terrains, and events, cutting training and labelling time while driving near‑zero false positives.
           </p>
         </div>
         <img src={img('images/ai-model.png')} alt="AI Model" style="width:160px" />
       </div>
     </section>
 
-    <!-- Global vision -->
     <section id="focus" class="section">
       <div class="wrap card" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
         <img src={img('images/world-map.png')} alt="World map" style="width:180px" />
@@ -121,7 +120,6 @@ const img = (p: string) => import.meta.env.BASE_URL + p.replace(/^\//, '');
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="section" style="padding-top:32px">
       <div class="wrap muted" style="font-size:14px">
         FiberMind — Cambridge • <a href="mailto:deep.desai@fibermind.ai">deep.desai@fibermind.ai</a> • +971 566777884
